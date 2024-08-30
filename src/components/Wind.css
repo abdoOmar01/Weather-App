@@ -1,0 +1,18 @@
+#wind {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: center;
+
+  img {
+    width: 100px;
+  }
+
+  div {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    font-weight: 200;
+    font-size: 1.2rem;
+  }
+}

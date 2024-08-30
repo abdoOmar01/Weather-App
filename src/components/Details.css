@@ -1,0 +1,23 @@
+#details {
+  table {
+    border-collapse: collapse;
+
+    tr {
+      border-bottom: 1px solid rgba(154, 152, 200, 0.8);
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    td {
+      padding: 16px 20px;
+      text-align: left;
+
+      &.value {
+        font-weight: 500;
+        text-align: right;
+      }
+    }
+  }
+}

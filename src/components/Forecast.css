@@ -1,0 +1,29 @@
+#forecast {
+  table {
+    border-collapse: collapse;
+
+    tr {
+      border-bottom: 1px solid rgba(154, 152, 200, 0.8);
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    td {
+      font-weight: 200;
+      padding: 15px 20px;
+      text-align: center;
+
+      &.icon-cell {
+        text-align: right;
+        
+        span {
+          content: url(../assets/sun.png);
+          width: 20px;
+          vertical-align: bottom;
+        }
+      }
+    }
+  }
+}

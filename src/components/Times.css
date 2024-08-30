@@ -1,0 +1,24 @@
+#times {
+  height: fit-content;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    tr {
+      border-bottom: 1px solid rgba(154, 152, 200, 0.8);
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    td {
+      text-align: left;
+      padding: 8px 10px;
+
+      &.time {
+        font-weight: 500;
+      }
+    }
+  }
+}
