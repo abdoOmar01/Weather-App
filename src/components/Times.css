@@ -17,6 +17,7 @@
       padding: 8px 10px;
 
       &.time {
+        text-align: right;
         font-weight: 500;
       }
     }

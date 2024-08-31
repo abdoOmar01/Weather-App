@@ -8,7 +8,8 @@ html, body {
 }
 
 body {
-  background: linear-gradient(180deg, rgb(13, 7, 126) 27%, rgb(19, 130, 152) 100%);
+  background: linear-gradient(160deg, rgb(13, 7, 126) 27%, rgb(19, 130, 152) 100%);
+  min-height: 100vh;
   color: white;
 }
 
@@ -20,8 +21,23 @@ body {
   font-family: Poppins;
 }
 
+#loading-container {
+  width: 80%;
+  margin: 0 auto;
+
+  #logo {
+    width: 200px;
+    display: block;
+    margin: 50px auto;
+  }
+
+  #spinner {
+    width: 100px;
+    display: inline-block;
+  }
+}
+
 header {
-  margin-bottom: 50px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -188,5 +204,11 @@ main {
 @media (max-width: 380px) {
   main section#forecast table td.icon-cell {
     display: none;
+  }
+}
+
+@media (max-width: 300px) {
+  #loading-container #logo {
+    width: 150px;
   }
 }

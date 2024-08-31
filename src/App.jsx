@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { feature } from '@rapideditor/country-coder'
-import axios from 'axios'
 
 import Forecast from './components/Forecast'
 import Details from './components/Details'
@@ -9,8 +8,13 @@ import Wind from './components/Wind'
 import Times from './components/Times'
 import Air from './components/Air'
 
+import weatherService from './services/weatherService'
+// import countryService from './services/countryService'
+
 import './App.css'
 
+import loadingImg from './assets/loading.gif'
+import logo from './assets/icon.png'
 import forecastImg from './assets/forecast 2.png'
 import detailsImg from './assets/details.png'
 import windImg from './assets/wind 2.png'
@@ -18,7 +22,7 @@ import leafImg from './assets/leaf.png'
 
 function App() {
   const [country, setCountry] = useState('')
-  //const [cities, setCitites] = useState([])
+  // const [cities, setCitites] = useState([])
   const [currentCondition, setCurrentCondition] = useState(null)
   const [forecast, setForecast] = useState([])
 
@@ -30,25 +34,29 @@ function App() {
 
       setCountry(country)
 
-      // axios.post(`${import.meta.env.VITE_CITIES_API}`, { country })
-      //   .then(response => {
-      //     setCitites(response.data.data.states)
+      // countryService
+      //   .getCities(country)
+      //   .then(data => {
+      //     setCitites(data.data.states)
       //   })
-
-      axios.get(`${import.meta.env.VITE_WEATHER_API}` +
-                `?key=${import.meta.env.VITE_API_KEY}` +
-                `&q=${country}` +
-                `&aqi=yes&num_of_days=5&format=json`)
-            .then(response => {
-              setCurrentCondition(response.data.data.current_condition[0])
-              setForecast(response.data.data.weather)
-              console.log(response.data.data)
-              console.log(typeof forecastImg)
-            })
+      
+      weatherService
+        .getWeather(country)
+        .then(data => {
+          setCurrentCondition(data.data.current_condition[0])
+          setForecast(data.data.weather)
+        })
     })
   }, [])
 
-  if (!currentCondition) return <></>
+  if (!currentCondition) {
+    return (
+      <div id="loading-container">
+        <img src={logo} alt="Logo" id="logo" />
+        <img src={loadingImg} alt="loading" id="spinner" />
+      </div>
+    )
+  }
 
   return (
     <>
