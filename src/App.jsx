@@ -81,8 +81,6 @@ function App() {
       return `${hourString.slice(0, 2)}:${hourString.slice(2)}`
     })
 
-    console.log(monthly)
-    console.log(cityForecast)
     return (
       <>
         <header id="city">
@@ -122,7 +120,6 @@ function App() {
             caption={"Hourly Temperature"}
             type={'bar'} />
         </div>
-
       </>
     )
   }

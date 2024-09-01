@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import './Chart.css'
 
-const LinePlot = ({ xValues, yValues, xLabel, yLabel, caption, type }) => {
+const Chart = ({ xValues, yValues, xLabel, yLabel, caption, type }) => {
   const svgRef = useRef()
   const wrapperRef = useRef()
   const [dimensions, setDimensions] = useState({ width: 0, height: 0})
@@ -119,7 +119,6 @@ const LinePlot = ({ xValues, yValues, xLabel, yLabel, caption, type }) => {
       .attr("fill", "steelblue");
     }
 
-
     svg.append("text")
       .attr("class", "caption")
       .attr("x", width / 2)
@@ -135,7 +134,7 @@ const LinePlot = ({ xValues, yValues, xLabel, yLabel, caption, type }) => {
   )
 }
 
-LinePlot.propTypes = {
+Chart.propTypes = {
   xValues: PropTypes.array,
   yValues: PropTypes.array,
   xLabel: PropTypes.string,
@@ -144,4 +143,4 @@ LinePlot.propTypes = {
   type: PropTypes.string
 }
 
-export default LinePlot
+export default Chart
