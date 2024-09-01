@@ -1,8 +1,6 @@
 .chart-container {
-  width: 100%;
-  max-width: 1000px;
   height: auto;
-  margin: 50px auto;
+  margin: 0 auto;
   background-color: rgba(154, 152, 200, 0.1);
   border-radius: 10px;
   overflow: clip;
@@ -13,22 +11,45 @@
 
   .plot {
     .x-axis, .y-axis {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
 
     .x-label, .y-label {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       font-weight: 500;
       fill: whitesmoke;
       font-style: italic;
     }
 
     .caption {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 500;
       fill: white;
     }
 
+  }
+}
+
+@media (max-width: 1150px) {
+  .chart-container {
+    .plot {
+      .x-axis, .y-axis {
+        font-size: 0.8rem;
+      }
+  
+      .x-label, .y-label {
+        font-size: 1rem;
+        font-weight: 500;
+        fill: whitesmoke;
+        font-style: italic;
+      }
+  
+      .caption {
+        font-size: 1.2rem;
+        font-weight: 500;
+        fill: white;
+      }
+    }
   }
 }
 

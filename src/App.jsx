@@ -103,23 +103,26 @@ function App() {
           </section>
         </header>
 
-        <Chart xValues={monthly.map(m => m.name)}
-          yValues={monthly.map(m => m.avgMinTemp)}
-          xLabel={"Month"} yLabel={`Temperature`}
-          caption={"Average Monthly Minimum Temperature"}
-          type={'line'} />
+        <div className='charts'>
+          <Chart xValues={monthly.map(m => m.name)}
+            yValues={monthly.map(m => m.avgMinTemp)}
+            xLabel={"Month"} yLabel={`Temperature`}
+            caption={"Average Monthly Minimum Temperature"}
+            type={'line'} />
 
-        <Chart xValues={monthly.map(m => m.name)}
-          yValues={monthly.map(m => m.absMaxTemp)}
-          xLabel={"Month"} yLabel={`Temperature`}
-          caption={"Absolute Monthly Maximum Temperature"}
-          type={'line'} />
+          <Chart xValues={monthly.map(m => m.name)}
+            yValues={monthly.map(m => m.absMaxTemp)}
+            xLabel={"Month"} yLabel={`Temperature`}
+            caption={"Absolute Monthly Maximum Temperature"}
+            type={'line'} />
 
-        <Chart xValues={hours}
-          yValues={cityForecast[0].hourly.map(h => h.tempC)}
-          xLabel={"Hour"} yLabel={`Temperature`}
-          caption={"Hourly Temperature"}
-          type={'bar'} />
+          <Chart xValues={hours}
+            yValues={cityForecast[0].hourly.map(h => h.tempC)}
+            xLabel={"Hour"} yLabel={`Temperature`}
+            caption={"Hourly Temperature"}
+            type={'bar'} />
+        </div>
+
       </>
     )
   }
