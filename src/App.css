@@ -175,6 +175,22 @@ main {
 }
 
 @media (max-width: 1150px) {
+  header#city {
+    display: grid;
+    gap: 0;
+
+    div:first-child {
+      width: 100%;
+    }
+
+    section {
+      width: 100%;
+      display: grid;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+  }
+
   main section {
     &#others {
       #wind {
@@ -219,18 +235,6 @@ main {
 }
 
 @media (max-width: 830px) {
-  header#city {
-    display: grid;
-    gap: 0;
-
-    section {
-      width: 100%;
-      display: grid;
-      align-items: center;
-      justify-content: space-evenly;
-    }
-  }
-
   main {
     grid-template-columns: 1fr;
     gap: 15px;
@@ -251,6 +255,15 @@ main {
 
   }
 }
+
+@media (max-width: 700px) {
+  header#city div:first-child {
+    display: grid;
+    margin: 0 auto;
+    justify-content: center;
+  }
+}
+
 
 @media (max-width: 500px) {
   main {
@@ -281,23 +294,18 @@ main {
 
 @media (max-width: 480px) {
   header#city {
-    padding: 0;
-    h1 {
-      font-size: 2.8rem;
-    }
-    p {
-      font-size: 1.2rem;
-    }
-  }
-}
-
-@media (max-width: 400px) {
-  header#city {
     div:first-child {
       button#back, button#back img {
         width: 50px;
         height: 50px;
       }
+    }
+    padding: 0;
+    h1 {
+      font-size: 2rem;
+    }
+    p {
+      font-size: 1.2rem;
     }
   }
 }
