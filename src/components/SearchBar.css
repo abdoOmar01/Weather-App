@@ -48,6 +48,18 @@
 
 @media (max-width: 500px) {
   #search-bar {
-    max-width: 150px;
+    width: 70%;
+  }
+}
+
+@media (max-width: 400px) {
+  #search-bar {
+    width: 80%;
+  }
+}
+
+@media (max-width: 380px) {
+  #search-bar {
+    width: 100%;
   }
 }

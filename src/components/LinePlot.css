@@ -5,7 +5,7 @@
   margin: 50px auto;
   background-color: rgba(154, 152, 200, 0.1);
   border-radius: 10px;
-  overflow: hidden;
+  overflow: clip;
 
   &:hover {
     background-color: rgba(154, 152, 200, 0.2);
