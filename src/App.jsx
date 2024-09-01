@@ -2,14 +2,16 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { feature } from '@rapideditor/country-coder'
 
+import SearchBar from './components/SearchBar'
 import Forecast from './components/Forecast'
 import Details from './components/Details'
 import Wind from './components/Wind'
 import Times from './components/Times'
 import Air from './components/Air'
+import LinePlot from './components/LinePlot'
 
 import weatherService from './services/weatherService'
-// import countryService from './services/countryService'
+import countryService from './services/countryService'
 
 import './App.css'
 
@@ -22,9 +24,11 @@ import leafImg from './assets/leaf.png'
 
 function App() {
   const [country, setCountry] = useState('')
-  // const [cities, setCitites] = useState([])
+  const [cities, setCitites] = useState([])
   const [currentCondition, setCurrentCondition] = useState(null)
   const [forecast, setForecast] = useState([])
+  const [cityWeather, setCityWeather] = useState(null)
+  const [cityHistory, setCityHistory] = useState(null)
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(pos => {
@@ -34,11 +38,11 @@ function App() {
 
       setCountry(country)
 
-      // countryService
-      //   .getCities(country)
-      //   .then(data => {
-      //     setCitites(data.data.states)
-      //   })
+      countryService
+        .getCities(country)
+        .then(data => {
+          setCitites(data.data.states)
+        })
       
       weatherService
         .getWeather(country)
@@ -49,6 +53,20 @@ function App() {
     })
   }, [])
 
+  const handleCitySelect = city => {
+    weatherService
+      .getWeather(city)
+      .then(data => {
+        setCityWeather(data.data)
+      })
+
+    weatherService
+      .getHistory(city)
+      .then(data => {
+        console.log(data)
+      })
+  }
+
   if (!currentCondition) {
     return (
       <div id="loading-container">
@@ -58,9 +76,49 @@ function App() {
     )
   }
 
+  if (cityWeather) {
+    const cityName = cityWeather.request[0].query.split(',')[0]
+    const monthly = cityWeather.ClimateAverages[0].month
+    const cityCondition = cityWeather.current_condition[0]
+    const cityForecast = cityWeather.weather
+
+    console.log(monthly)
+    console.log(cityForecast)
+    return (
+      <>
+        <header id="city">
+          <div>
+            <button onClick={() => setCityWeather(null)}>&#x25c0;</button>
+            <h1>{cityName}</h1>
+          </div>
+          <section>
+            <h1>{cityCondition.temp_C}<sup>&deg;C</sup></h1>
+            <div>
+              <p>{cityCondition.weatherDesc[0].value}
+                <span>{cityForecast[0].maxtempC}<sup>&deg;</sup> / {cityForecast[0].mintempC}
+                  <sup>&deg;</sup></span>
+              </p>
+            </div>
+          </section>
+        </header>
+
+        <LinePlot xValues={monthly.map(m => m.name)}
+          yValues={monthly.map(m => m.avgMinTemp)}
+          xLabel={"Month"} yLabel={`Temperature`}
+          caption={"Average Monthly Minimum Temperature"} />
+
+        <LinePlot xValues={monthly.map(m => m.name)}
+          yValues={monthly.map(m => m.absMaxTemp)}
+          xLabel={"Month"} yLabel={`Temperature`}
+          caption={"Absolute Monthly Maximum Temperature"} />
+      </>
+    )
+  }
+
   return (
     <>
       <header>
+        <SearchBar cities={cities} cityHandler={handleCitySelect} />
         <h1>{country}</h1>
 
         <section>

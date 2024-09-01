@@ -1,0 +1,114 @@
+.chart-container {
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  margin: 50px auto;
+  background-color: rgba(154, 152, 200, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+
+  &:hover {
+    background-color: rgba(154, 152, 200, 0.2);
+  }
+
+  .plot {
+    .x-axis, .y-axis {
+      font-size: 1.2rem;
+    }
+
+    .x-label, .y-label {
+      font-size: 1.4rem;
+      font-weight: 500;
+      fill: whitesmoke;
+      font-style: italic;
+    }
+
+    .caption {
+      font-size: 1.6rem;
+      font-weight: 500;
+      fill: white;
+    }
+
+  }
+}
+
+@media (max-width: 800px) {
+  .chart-container {
+    .plot {
+      .x-axis, .y-axis {
+        font-size: 1rem;
+      }
+
+      .x-label, .y-label {
+        font-size: 1.2rem;
+      }
+
+  
+      .caption {
+        font-size: 1.4rem;
+        font-weight: 500;
+        margin-bottom: 100px;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .chart-container {
+    .plot {
+      .x-axis, .y-axis {
+        font-size: 0.8rem;
+      }
+
+      .x-label, .y-label {
+        font-size: 0.7rem;
+      }
+  
+      .caption {
+        font-size: 1rem;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 600px) {
+  .chart-container {
+    max-width: 100%;
+
+    .plot {
+      .x-axis, .y-axis {
+        font-size: 0.6rem;
+      }
+  
+      .caption {
+        font-size: 0.7rem;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .chart-container {
+    .plot {
+      .x-axis, .y-axis {
+        font-size: 0.4rem;
+      }
+
+      .x-label, .y-label {
+        font-size: 0.4rem;
+      }
+
+      path {
+        stroke-width: 1;
+      }
+  
+      .caption {
+        font-size: 0.5rem;
+        font-weight: 500;
+      }
+    }
+  }
+}

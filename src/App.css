@@ -8,7 +8,7 @@ html, body {
 }
 
 body {
-  background: linear-gradient(160deg, rgb(13, 7, 126) 27%, rgb(19, 130, 152) 100%);
+  background: linear-gradient(160deg, rgb(65, 64, 83) 27%, rgb(30, 34, 35) 100%);
   min-height: 100vh;
   color: white;
 }
@@ -84,7 +84,8 @@ main {
       width: 70%;
 
       caption {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
+        font-weight: 400;
         margin-bottom: 10px;
       }
 
@@ -197,6 +198,18 @@ main {
           display: none;
         }
       }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  header#city {
+    padding: 0;
+    h1 {
+      font-size: 2.8rem;
+    }
+    p {
+      font-size: 1.2rem;
     }
   }
 }
