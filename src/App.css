@@ -39,23 +39,34 @@ body {
 
 header#city {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   gap: 30px;
+
+  section {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    h1 {
+      margin-top: 0;
+    }
+  }
 
   div:first-child {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 30px;
+    width: 50%;
 
     button#back {
       background: none;
-      width: 100px;
+      width: 80px;
+      height: 80px;
       padding: 0;
       border-radius: 50%;
       border: none;
-      height: 100px;
       display: block;
       margin: 0 auto;
   
@@ -65,8 +76,8 @@ header#city {
       }
   
       img {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
       }
     }
   }
@@ -208,6 +219,13 @@ main {
   header#city {
     display: grid;
     gap: 0;
+
+    section {
+      width: 100%;
+      display: grid;
+      align-items: center;
+      justify-content: space-evenly;
+    }
   }
 
   main {
@@ -257,16 +275,6 @@ main {
   }
 }
 
-@media (max-width: 400px) {
-  header#city {
-    div:first-child {
-      button#back, button#back img {
-        width: 70px;
-        height: 70px;
-      }
-    }
-  }
-}
 
 @media (max-width: 480px) {
   header#city {
@@ -280,13 +288,18 @@ main {
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 400px) {
   header#city {
-    button#back, button#back img {
-      width: 80px;
-      height: 80px;
+    div:first-child {
+      button#back, button#back img {
+        width: 50px;
+        height: 50px;
+      }
     }
   }
+}
+
+@media (max-width: 380px) {
   main section#forecast table td.icon-cell {
     display: none;
   }
