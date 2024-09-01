@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import * as d3 from 'd3'
 import PropTypes from 'prop-types'
 
-import './LinePlot.css'
+import './Chart.css'
 
-const LinePlot = ({ xValues, yValues, xLabel, yLabel, caption }) => {
+const LinePlot = ({ xValues, yValues, xLabel, yLabel, caption, type }) => {
   const svgRef = useRef()
   const wrapperRef = useRef()
   const [dimensions, setDimensions] = useState({ width: 0, height: 0})
@@ -41,7 +41,7 @@ const LinePlot = ({ xValues, yValues, xLabel, yLabel, caption }) => {
     const xScale = d3.scaleBand()
       .domain(data.map(d => d.x))
       .range([margin.left, width - margin.right])
-      .padding(0.1)
+      .padding(0.4)
 
     const maxY = d3.max(data, d => Number(d.y));
     const tickInterval = 5;
@@ -89,22 +89,36 @@ const LinePlot = ({ xValues, yValues, xLabel, yLabel, caption }) => {
       .attr("text-anchor", "middle")
       .text(yLabel);
 
-    svg.append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-width", 3)
-      .attr("d", line);
-
-    svg.append("g")
-      .selectAll("circle")
+    if (type === 'line') {
+      svg.append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 3)
+        .attr("d", line);
+  
+      svg.append("g")
+        .selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", d => xScale(d.x))
+        .attr("cy", d => yScale(Number(d.y)))
+        .attr("r", width < 350 ? 1 : 3)
+        .attr("fill", "steelblue")
+    } else if (type === 'bar') {
+      svg.selectAll(".bar")
       .data(data)
       .enter()
-      .append("circle")
-      .attr("cx", d => xScale(d.name))
-      .attr("cy", d => yScale(Number(d.avgMinTemp)))
-      .attr("r", 3)
-      .attr("fill", "steelblue")
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", d => xScale(d.x))
+      .attr("y", d => yScale(d.y))
+      .attr("width", xScale.bandwidth())
+      .attr("height", d => height - margin.bottom - yScale(d.y))
+      .attr("fill", "steelblue");
+    }
+
 
     svg.append("text")
       .attr("class", "caption")
@@ -112,7 +126,7 @@ const LinePlot = ({ xValues, yValues, xLabel, yLabel, caption }) => {
       .attr("y", height - ((margin.top + margin.bottom) * 2))
       .attr("text-anchor", "middle")
       .text(caption)
-  }, [xValues, yValues, dimensions, xLabel, yLabel, caption])
+  }, [xValues, yValues, dimensions, xLabel, yLabel, caption, type])
 
   return (
     <div ref={wrapperRef} className='chart-container'>
@@ -126,7 +140,8 @@ LinePlot.propTypes = {
   yValues: PropTypes.array,
   xLabel: PropTypes.string,
   yLabel: PropTypes.string,
-  caption: PropTypes.string
+  caption: PropTypes.string,
+  type: PropTypes.string
 }
 
 export default LinePlot

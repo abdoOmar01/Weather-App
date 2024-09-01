@@ -8,7 +8,7 @@ import Details from './components/Details'
 import Wind from './components/Wind'
 import Times from './components/Times'
 import Air from './components/Air'
-import LinePlot from './components/LinePlot'
+import Chart from './components/Chart'
 
 import weatherService from './services/weatherService'
 import countryService from './services/countryService'
@@ -21,6 +21,7 @@ import forecastImg from './assets/forecast 2.png'
 import detailsImg from './assets/details.png'
 import windImg from './assets/wind 2.png'
 import leafImg from './assets/leaf.png'
+import leftArrow from './assets/left-arrow.png'
 
 function App() {
   const [country, setCountry] = useState('')
@@ -28,7 +29,6 @@ function App() {
   const [currentCondition, setCurrentCondition] = useState(null)
   const [forecast, setForecast] = useState([])
   const [cityWeather, setCityWeather] = useState(null)
-  const [cityHistory, setCityHistory] = useState(null)
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(pos => {
@@ -59,12 +59,6 @@ function App() {
       .then(data => {
         setCityWeather(data.data)
       })
-
-    weatherService
-      .getHistory(city)
-      .then(data => {
-        console.log(data)
-      })
   }
 
   if (!currentCondition) {
@@ -82,13 +76,20 @@ function App() {
     const cityCondition = cityWeather.current_condition[0]
     const cityForecast = cityWeather.weather
 
+    const hours = cityForecast[0].hourly.map(h => {
+      const hourString = h.time.toString().padStart(4,  '0')
+      return `${hourString.slice(0, 2)}:${hourString.slice(2)}`
+    })
+
     console.log(monthly)
     console.log(cityForecast)
     return (
       <>
         <header id="city">
           <div>
-            <button onClick={() => setCityWeather(null)}>&#x25c0;</button>
+            <button id="back" onClick={() => setCityWeather(null)}>
+              <img src={leftArrow} alt="" />
+            </button>
             <h1>{cityName}</h1>
           </div>
           <section>
@@ -102,15 +103,23 @@ function App() {
           </section>
         </header>
 
-        <LinePlot xValues={monthly.map(m => m.name)}
+        <Chart xValues={monthly.map(m => m.name)}
           yValues={monthly.map(m => m.avgMinTemp)}
           xLabel={"Month"} yLabel={`Temperature`}
-          caption={"Average Monthly Minimum Temperature"} />
+          caption={"Average Monthly Minimum Temperature"}
+          type={'line'} />
 
-        <LinePlot xValues={monthly.map(m => m.name)}
+        <Chart xValues={monthly.map(m => m.name)}
           yValues={monthly.map(m => m.absMaxTemp)}
           xLabel={"Month"} yLabel={`Temperature`}
-          caption={"Absolute Monthly Maximum Temperature"} />
+          caption={"Absolute Monthly Maximum Temperature"}
+          type={'line'} />
+
+        <Chart xValues={hours}
+          yValues={cityForecast[0].hourly.map(h => h.tempC)}
+          xLabel={"Hour"} yLabel={`Temperature`}
+          caption={"Hourly Temperature"}
+          type={'bar'} />
       </>
     )
   }

@@ -37,6 +37,29 @@ body {
   }
 }
 
+header#city {
+  button#back {
+    background: none;
+    width: 100px;
+    padding: 0;
+    border-radius: 50%;
+    border: none;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+
+    &:active, &:hover {
+      cursor: pointer;
+      background-color: rgba(190, 190, 181, 0.701);
+    }
+
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+
 header {
   margin: 0 auto;
   padding: 2rem;
@@ -215,6 +238,12 @@ main {
 }
 
 @media (max-width: 380px) {
+  header#city {
+    button#back, button#back img {
+      width: 80px;
+      height: 80px;
+    }
+  }
   main section#forecast table td.icon-cell {
     display: none;
   }

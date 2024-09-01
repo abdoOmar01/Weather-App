@@ -20,8 +20,9 @@
   z-index: 1;
   width: 99%;
   max-height: 160px;
-  overflow: hidden;
+  overflow: clip;
   color: black;
+  text-align: left;
 }
 
 #search-bar input {
@@ -30,10 +31,18 @@
   margin: 0;
   outline: none;
   box-sizing: border-box;
+  border: 0;
   border-bottom: none;
   border-radius: 4px 4px 0 0;
   font-size: 1rem;
   font-family: Poppins;
+  background-color: rgba(4, 4, 4, 0.575);
+  color: white;
+  font-weight: 400;
+
+  &:focus, &:hover {
+    background-color: rgba(4, 4, 4, 0.384);
+  }
 }
 
 .suggestions li {
