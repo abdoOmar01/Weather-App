@@ -1,7 +1,17 @@
 import axios from 'axios'
 
-const getCities = async (country) => {
-  const response = await axios.post(`${import.meta.env.VITE_CITIES_API}`, { country })
+const citiesAPI = import.meta.env.VITE_CITIES_API
+const apiKey = import.meta.env.VITE_CITIES_API_KEY
+
+const getCities = async (code) => {
+  const response =
+    await axios
+      .get(`${citiesAPI}/${code}/states`, {
+        headers: {
+          "X-CSCAPI-KEY": apiKey,
+        }
+      })
+
   return response.data
 }
 

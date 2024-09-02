@@ -27,7 +27,7 @@ const SearchBar = ({ cities, cityHandler }) => {
       {filteredCities.length > 0 && (
         <ul className="suggestions">
           {filteredCities.map(c =>
-            <li key={c.state_code} onClick={handleSelection}>{c.name}</li>
+            <li key={c.iso2} onClick={handleSelection}>{c.name}</li>
           )}
         </ul>
       )}

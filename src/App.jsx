@@ -34,18 +34,21 @@ function App() {
     navigator.geolocation.getCurrentPosition(pos => {
       const latitude = pos.coords.latitude
       const longitude = pos.coords.longitude
-      const country = feature([latitude, longitude]).properties.nameEn
+      const countryInfo = feature([latitude, longitude]).properties
+      const countryName = countryInfo.nameEn
+      const countryCode = countryInfo.iso1A2
 
-      setCountry(country)
+      setCountry(countryName)
 
       countryService
-        .getCities(country)
+        .getCities(countryCode)
         .then(data => {
-          setCitites(data.data.states)
+          console.log(data)
+          setCitites(data)
         })
       
       weatherService
-        .getWeather(country)
+        .getWeather(countryName)
         .then(data => {
           setCurrentCondition(data.data.current_condition[0])
           setForecast(data.data.weather)
@@ -71,6 +74,19 @@ function App() {
   }
 
   if (cityWeather) {
+    if (cityWeather.error) {
+      return (
+        <header id="city">
+          <div>
+            <button id="back" onClick={() => setCityWeather(null)}>
+              <img src={leftArrow} alt="" />
+            </button>
+            <h1>Unable to find weather for the following city!</h1>
+          </div>
+        </header>
+      )
+    }
+
     const cityName = cityWeather.request[0].query.split(',')[0]
     const monthly = cityWeather.ClimateAverages[0].month
     const cityCondition = cityWeather.current_condition[0]
@@ -142,7 +158,7 @@ function App() {
       </header>
 
       <main>
-        <Forecast data={forecast} img={forecastImg} />
+        <Forecast data={forecast.slice(1)} img={forecastImg} />
 
         <Details humidity={currentCondition.humidity} feel={currentCondition.FeelsLikeC}
           uv={currentCondition.uvIndex} pressure={currentCondition.pressure}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import './Forecast.css'
 
 const Forecast = ({ data, img }) => {
+  console.log(data)
   return (
     <section id="forecast">
     <img src={img} alt="Weather Forecast" />
